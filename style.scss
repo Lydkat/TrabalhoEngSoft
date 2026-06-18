@@ -1,0 +1,171 @@
+$bran-br: #ffffff;
+$texto-escuro: #111111;
+$bg-azul: #1d4ed8; // O azul do seu card que vimos na foto
+$online-br: #ffffff;
+
+body {
+    background-image: url("backgroud foto/b.jpg");
+    background-size: cover;
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.br-header {
+    display: flex;
+    width: 100%;
+    
+    height: 70px;
+    background-color: $bg-azul;
+    overflow: hidden; 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        width: 20%;
+        background-color: $bg-azul;
+
+        .logo-text {
+            color: white;
+            font-weight: 900;
+            font-size: 16px;
+            font-style: italic; 
+        }
+    }
+
+    .header-right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px 0 40px; 
+        width: 78%;
+        background-color: $bran-br;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -29px; 
+            width: 0;
+            height: 0;
+            border-bottom: 70px solid $bran-br;
+            border-left: 30px solid transparent; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+
+            a {
+                color: $texto-escuro;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: 700;
+            }
+        }
+
+        .status-dot {
+            color: $online-br;
+            font-size: 10px;
+            font-weight: 700;
+            background-color: rgba(rgb(60, 255, 0), 0.6);
+            padding: 4px 6px;
+            border-radius: 15px;
+        }
+    }
+}
+
+
+.app-container {
+    background-color: $bg-azul;
+    
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+
+    .logo-posto {
+        color: #ffffff; 
+        font-size: 32px;
+        margin: 0 0 5px 0;
+    }
+    .tagline {
+        color: rgba(white, 0.7);
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+}
+
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    .input-field {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+}
+
+
+.botoes-rapidos {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .btn-valor {
+        flex: 1;
+        background-color: rgba(white, 0.2);
+        color: white;
+        text-decoration: none;
+        padding: 12px 0;
+        border-radius: 8px;
+        font-weight: bold;
+        border: 1px solid rgba(white, 0.4);
+        
+        &:hover {
+            background-color: rgba(white, 0.3);
+        }
+    }
+}
+
+.btn-sistema {
+    display: block;
+    background-color: #ff6b00;
+    color: white;
+    text-decoration: none;
+    padding: 15px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    &:hover {
+        background-color: #e05e00;
+    }
+}

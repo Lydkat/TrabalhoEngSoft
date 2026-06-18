@@ -1,0 +1,148 @@
+body {
+  background-image: url("backgroud foto/b.jpg");
+  background-size: cover;
+  background-color: #f4f6f9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.br-header {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: #1d4ed8;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+.br-header .header-left {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  width: 20%;
+  background-color: #1d4ed8;
+}
+.br-header .header-left .logo-text {
+  color: white;
+  font-weight: 900;
+  font-size: 16px;
+  font-style: italic;
+}
+.br-header .header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 0 40px;
+  width: 78%;
+  background-color: #ffffff;
+  position: relative;
+}
+.br-header .header-right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -29px;
+  width: 0;
+  height: 0;
+  border-bottom: 70px solid #ffffff;
+  border-left: 30px solid transparent;
+}
+.br-header .header-right .nav-links {
+  display: flex;
+  gap: 10px;
+}
+.br-header .header-right .nav-links a {
+  color: #111111;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+}
+.br-header .header-right .status-dot {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  background-color: rgba(60, 255, 0, 0.6);
+  padding: 4px 6px;
+  border-radius: 15px;
+}
+
+.app-container {
+  background-color: #1d4ed8;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+}
+.app-container .logo-posto {
+  color: #ffffff;
+  font-size: 32px;
+  margin: 0 0 5px 0;
+}
+.app-container .tagline {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.form-group .input-field {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.botoes-rapidos {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.botoes-rapidos .btn-valor {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.botoes-rapidos .btn-valor:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-sistema {
+  display: block;
+  background-color: #ff6b00;
+  color: white;
+  text-decoration: none;
+  padding: 15px 0;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-sistema:hover {
+  background-color: #e05e00;
+}/*# sourceMappingURL=style.css.map */
