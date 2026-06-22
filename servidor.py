@@ -10,7 +10,7 @@ def conectar_banco():
     return mysql.connector.connect(
         host="localhost",
         user="root",          
-        password="",  
+        password="Evacach1009*",  
         database="postog2"      
     )
 
@@ -83,10 +83,6 @@ def criar_abastecimento():
     except Exception as e:
         return jsonify({"sucesso": False, "mensagem": f"Erro ao registrar abastecimento: {str(e)}"}), 500
 
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
-
-
 @app.route('/api/pagar', methods=['POST'])
 def pagar_transacao():
     dados = request.json
@@ -117,6 +113,6 @@ def pagar_transacao():
     except Exception as e:
         return jsonify({"sucesso": False, "mensagem": f"Erro ao processar pagamento: {str(e)}"}), 500
 
-
+#run di=o codigozin
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
