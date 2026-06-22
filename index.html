@@ -10,7 +10,7 @@
 
     <header class="br-header">
         <div class="header-left">
-            <span class="logo-text">Posto GSL</span>
+            <span class="logo-text">AutoPosto</span>
         </div>
         <div class="header-right">
             <div class="nav-links">
@@ -23,19 +23,48 @@
     </header>
 
     <main class="app-container">
-        <h2 class="logo-posto">Posto GSL</h2>
+        <h2 class="logo-posto">AutoPosto</h2>
         <p class="tagline">Abastecimento rápido e com eficiencia </p>
         
         <div class="form-group">
             <label>CPF</label>
-            <input type="text" class="input-field" placeholder="Apenas números">
-            
+            <input type="text" id="cpf" class="input-field" placeholder="Apenas números">
+        
             <label>Senha</label>
-            <input type="password" class="input-field" placeholder="Sua senha">
+            <input type="password" id="senha" class="input-field" placeholder="Sua senha">
         </div>
 
-        <a href="abastecimento.html" class="btn-sistema">ACESSAR SISTEMA</a>
+        <button type="button" class="btn-sistema" onclick="fazerLogin()">ACESSAR SISTEMA</button>
     </main>
 
+    <script>
+        async function fazerLogin() {
+            const cpf = document.getElementById('cpf').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                
+                const resposta = await fetch('http://localhost:5000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cpf: cpf, senha: senha })
+                });
+
+                const resultado = await resposta.json();
+
+                if (resultado.sucesso) {
+                    alert(resultado.mensagem);
+                    
+                    localStorage.setItem('id_cliente', resultado.id_cliente);
+                    
+                    window.location.href = "abastecimento.html";
+                } else {
+                    alert(resultado.mensagem);
+                }
+            } catch (erro) {
+                alert('Não foi possível conectar ao servidor backend. Verifique sua conexão com a internet');
+            }
+        }
+    </script>
 </body>
 </html>

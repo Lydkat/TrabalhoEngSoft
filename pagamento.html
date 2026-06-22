@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPosto - Pagamento Pix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="br-header">
+        <div class="header-left">
+            <span class="logo-text">AutoPosto</span>
+        </div>
+        <div class="header-right">
+            <span class="status-dot">● Aguardando Pagamento</span>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <h3 class="page-title">Pagamento via Pix</h3>
+        <p class="instructions">Abra o app do seu banco e escaneie o QR Code abaixo:</p>
+        
+        <div class="qr-placeholder">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CaiuNoBaitBB" alt="QR Code Pix">
+        </div>
+
+        <div class="value-display">
+            Total a Pagar: <span id="texto-valor">R$ 0,00</span>
+        </div>
+
+        <button type="button" class="btn-sistema" onclick="confirmarPagamento()">SIMULAR PAGAMENTO APROVADO</button>
+        <a href="abastecimento.html" class="btn-sistema" style="background-color: #334155; margin-top: 10px;">CANCELAR</a>
+    </main>
+
+    <script>
+        
+        const idTransacao = localStorage.getItem('id_transacao_atual');
+        const valorAbastecimento = localStorage.getItem('valor_atual');
+
+        if (valorAbastecimento) {
+            document.getElementById('texto-valor').innerText = `R$ ${parseFloat(valorAbastecimento).toFixed(2)}`;
+        }
+
+        
+        async function confirmarPagamento() {
+            try {
+                const resposta = await fetch('http://localhost:5000/api/pagar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_transacao: idTransacao })
+                });
+
+                const resultado = await resposta.json();
+
+                if (resultado.sucesso) {
+                    alert('🎉 ' + resultado.mensagem);
+                    window.location.href = "index.html"; 
+                } else {
+                    alert(resultado.mensagem);
+                }
+            } catch (erro) {
+                alert('Erro ao conectar ao servidor de pagamento.');
+            }
+        }
+    </script>
+
+</body>
+</html>

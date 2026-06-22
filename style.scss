@@ -1,6 +1,6 @@
 $bran-br: #ffffff;
 $texto-escuro: #111111;
-$bg-azul: #1d4ed8; // O azul do seu card que vimos na foto
+$bg-azul: #1d4ed8; 
 $online-br: #ffffff;
 
 body {
@@ -167,5 +167,19 @@ body {
     
     &:hover {
         background-color: #e05e00;
+    }
+}
+
+.qr-placeholder {
+    background: white;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 12px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+    img {
+        display: block;
+        max-width: 100%;
     }
 }
