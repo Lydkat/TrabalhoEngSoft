@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoPosto - Abastecer</title>
+    <title>Posto Fugaz - Abastecer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header class="br-header">
         <div class="header-left">
-            <span class="logo-text">AutoPosto</span>
+            <img src="icone/pf.png" alt="Logo Posto Fugaz" class="header-logo-img">
+            <span class="logo-text">Posto Fugaz</span>
         </div>
         <div class="header-right">
             <div class="nav-links">
@@ -35,6 +36,12 @@
         <div class="form-group">
             <label>Ou digite outro valor (R$):</label>
             <input type="number" id="campo-valor" class="input-field" placeholder="0,00">
+            
+            <label style="margin-top: 20px;">Forma de Pagamento:</label>
+            <select id="metodo-pagamento" class="input-field" style="background-color: white; height: 50px;">
+                <option value="pix">PIX (QR Code)</option>
+                <option value="cartao">Cartão de Crédito / Débito</option>
+            </select>
         </div>
 
         <a href="#" class="btn-sistema" onclick="irParaPagamento()">IR PARA O PAGAMENTO</a>
@@ -42,55 +49,53 @@
     </main>
 
     <script>
-    
-    function definirValor(valor) {
-        document.getElementById('campo-valor').value = valor;
-    }
-
-    
-    async function irParaPagamento() {
-        const valorTotal = document.getElementById('campo-valor').value;
-        
-        const idClienteLogado = localStorage.getItem('id_cliente');
-
-        if (!idClienteLogado) {
-            alert('Erro: Usuário não identificado. Faça o login novamente.');
-            window.location.href = "index.html";
-            return;
+        function definirValor(valor) {
+            document.getElementById('campo-valor').value = valor;
         }
 
-        if (valorTotal <= 0) {
-            alert('Por favor, selecione ou digite um valor para abastecer.');
-            return;
+        async function irParaPagamento() {
+            const valorTotal = document.getElementById('campo-valor').value;
+            const idClienteLogado = localStorage.getItem('id_cliente');
+            const metodo = document.getElementById('metodo-pagamento').value;
+
+            if (!idClienteLogado) {
+                alert('Erro: Usuário não identificado. Faça o login novamente.');
+                window.location.href = "index.html";
+                return;
+            }
+
+            if (valorTotal <= 0) {
+                alert('Por favor, selecione ou digite um valor para abastecer.');
+                return;
+            }
+
+            try {
+                const resposta = await fetch('http://localhost:5000/api/abastecer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id_cliente: idClienteLogado, valor: valorTotal, metodo: metodo })
+                });
+
+                const resultado = await resposta.json();
+
+                if (resultado.sucesso) {
+                    localStorage.setItem('id_transacao_atual', resultado.id_transacao);
+                    localStorage.setItem('valor_atual', valorTotal);
+
+                    alert('Transação gerada com sucesso! Redirecionando...');
+                    
+                    if (metodo === "cartao") {
+                        window.location.href = "cartao.html";
+                    } else {
+                        window.location.href = "pagamento.html";
+                    }
+                } else {
+                    alert(resultado.mensagem);
+                }
+            } catch (erro) {
+                alert('Erro de conexão. Verifique sua conexão com a internet.');
+            }
         }
-
-        try {
-            
-            const resposta = await fetch('http://localhost:5000/api/abastecer', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_cliente: idClienteLogado, valor: valorTotal })
-            });
-
-            
-            const resultado = await resposta.json();
-
-            if (resultado.sucesso) {
-    
-    localStorage.setItem('id_transacao_atual', resultado.id_transacao);
-    localStorage.setItem('campo-valor' ? valorTotal : valorTotal, valorTotal); 
-    localStorage.setItem('valor_atual', valorTotal);
-
-    alert('Transação gerada com sucesso! Redirecionando para o pagamento...');
-    
-    
-    window.location.href = "pagamento.html";
-}
-        } catch (erro) {
-            alert('Erro de conexão. Certifique-se de que o servidor.py está ativo no terminal.');
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>

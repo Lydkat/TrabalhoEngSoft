@@ -1,10 +1,10 @@
 $bran-br: #ffffff;
 $texto-escuro: #111111;
-$bg-azul: #1d4ed8; 
+$bg-azul: #000000; 
 $online-br: #ffffff;
 
 body {
-    background-image: url("backgroud foto/b.jpg");
+    background-image: url("backgroud foto/b.jpeg");
     background-size: cover;
     background-color: #f4f6f9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -40,6 +40,15 @@ body {
             font-size: 16px;
             font-style: italic; 
         }
+        .header-logo-img {
+        height: 50px;      
+        width: auto;       
+        object-fit: contain;
+        display: block;
+        }
+
+
+
     }
 
     .header-right {
@@ -154,19 +163,21 @@ body {
 }
 
 .btn-sistema {
-    display: block;
-    background-color: #ff6b00;
+    display: inline-block;       
+    background-color: #ff0000;
     color: white;
     text-decoration: none;
-    padding: 15px 0;
-    border-radius: 8px;
+    padding: 12px 30px;          
+    border-radius: 8px;          
     font-weight: bold;
     font-size: 16px;
     margin-top: 25px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.2s ease; 
     &:hover {
-        background-color: #e05e00;
+        background-color: #e00000;
+        transform: translateY(-1px); 
     }
 }
 
@@ -181,5 +192,57 @@ body {
     img {
         display: block;
         max-width: 100%;
+    }
+}
+.value-display {
+    background-color: rgba(255, 255, 255, 0.05); 
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border: 1px dashed rgba(255, 0, 0, 0.3); 
+    
+    span {
+        display: block;
+        font-size: 28px;
+        font-weight: 900;
+        color: #ff0000; 
+        margin-top: 5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+select.input-field {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='24' fill='%23111111'><polygon points='0,10 10,10 5,15'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px; 
+    -webkit-appearance: none; 
+       -moz-appearance: none;
+            appearance: none;
+    color: #111111;
+    font-weight: 600;
+    
+    &:focus {
+        outline: 2px solid #ff0000; 
+    }
+}
+
+
+.form-group {
+    label {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9); 
+    }
+    
+    .input-field {
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        
+        &:focus {
+            border: 1px solid #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+            outline: none;
+        }
     }
 }

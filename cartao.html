@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posto Fugaz - Cartão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="br-header">
+        <div class="header-left">
+            <img src="icone/pf.png" alt="Logo Posto Fugaz" class="header-logo-img">
+            <span class="logo-text">Posto Fugaz</span>
+        </div>
+        <div class="header-right">
+            <span class="status-dot" style="background-color: rgba(255, 166, 0, 0.7); color: white;">● Processando Cartão</span>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <h3 class="page-title">Pagamento com Cartão</h3>
+        <p class="instructions">Insira os dados do seu cartão abaixo para o valor de:</p>
+        
+        <div class="value-display" style="font-size: 24px; font-weight: bold; color: #ff0000; margin-bottom: 20px; text-align: center;">
+            <span id="texto-valor">R$ 0,00</span>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo de Cartão</label>
+            <select id="tipo-cartao" class="input-field" style="background-color: white; height: 50px;">
+                <option value="credito">Crédito</option>
+                <option value="debito">Débito</option>
+            </select>
+
+            <label style="margin-top: 15px;">Nome Impresso no Cartão</label>
+            <input type="text" id="nome-cartao" class="input-field" placeholder="Ex: BENEDITO HENRIQUE">
+
+            <label style="margin-top: 15px;">Número do Cartão</label>
+            <input type="text" id="numero-cartao" class="input-field" maxlength="19" placeholder="0000 0000 0000 0000">
+
+            <div style="display: flex; gap: 15px; margin-top: 15px;">
+                <div style="flex: 1;">
+                    <label>Validade</label>
+                    <input type="text" id="validade-cartao" class="input-field" maxlength="5" placeholder="MM/AA">
+                </div>
+                <div style="flex: 1;">
+                    <label>CVV (Segurança)</label>
+                    <input type="password" id="cvv-cartao" class="input-field" maxlength="3" placeholder="123">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-sistema" onclick="confirmarPagamentoCartao()">AUTORIZAR PAGAMENTO</button>
+        <a href="abastecimento.html" class="btn-sistema" style="background-color: #334155; margin-top: 10px;">CANCELAR</a>
+    </main>
+
+    <script>
+        const idTransacao = localStorage.getItem('id_transacao_atual');
+        const valorAbastecimento = localStorage.getItem('valor_atual');
+
+        if (valorAbastecimento) {
+            document.getElementById('texto-valor').innerText = `R$ ${parseFloat(valorAbastecimento).toFixed(2)}`;
+        }
+
+        
+        document.getElementById('numero-cartao').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        async function confirmarPagamentoCartao() {
+            const tipo = document.getElementById('tipo-cartao').value;
+            const numero = document.getElementById('numero-cartao').value;
+            const nome = document.getElementById('nome-cartao').value;
+
+            if (numero.length < 15 || !nome) {
+                alert('Por favor, preencha todos os dados do cartão corretamente.');
+                return;
+            }
+
+            try {
+                const resposta = await fetch('http://localhost:5000/api/pagar-cartao', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id_transacao: idTransacao,
+                        tipo: tipo,
+                        numero_cartao: numero
+                    })
+                });
+
+                const resultado = await resposta.json();
+
+                if (resultado.sucesso) {
+                    alert('💳 ' + resultado.mensagem);
+                    window.location.href = "index.html"; 
+                } else {
+                    alert(resultado.mensagem);
+                }
+            } catch (erro) {
+                alert('Erro ao conectar ao servidor de pagamento.');
+            }
+        }
+    </script>
+</body>
+</html>
